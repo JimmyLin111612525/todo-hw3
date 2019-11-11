@@ -1,0 +1,221 @@
+html {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100%;
+}
+
+body {
+  position: absolute;
+  width: 80%;
+  left: 10%;
+  top: 5%;
+}
+
+div.banner {
+  padding: 20px;
+  margin-top: 60px;
+}
+
+form {
+  padding: 20px;
+  margin-top: 60px;
+}
+
+form button, form h5 {
+  margin: 20px 0;
+}
+
+.list-screen-container{
+  padding-bottom: 40px;
+}
+
+.due-date,.completed,.assigned-to,.card-due-date,.card-completed,.card-assigned-to{
+  
+}
+.assigned-to{
+}
+
+.card-title{
+  font-weight:bolder;
+}
+
+.due-date{
+  display: inline;
+  position: absolute;
+  left:250px;
+}
+
+.completed{
+  display: inline;
+  position: absolute;
+  left:480px;
+}
+
+.card-assigned-to{
+}
+
+.card-due-date{
+  display: inline;
+  position: absolute;
+  left:250px;
+}
+
+.card-completed{
+  display: inline;
+  position: absolute;
+  left:480px;
+}
+
+.fab-container{
+  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  top:-50px;
+  left:740px;
+  z-index:900;
+  cursor:pointer;
+}
+
+.fab-icon-holder{
+  width:50px;
+  height:50px;
+  border-radius:100%;
+  background:#016fb9;
+  /*box-shadow:0 6px 20px rgba(0,0,0,0.2);*/
+}
+
+/*.fab-icon-holder:hover{
+  opacity: 0.8;
+}*/
+
+.fab-icon-holder a{
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  height:100%;
+  font-style:25px;
+  color:#fff;
+}
+
+.fab {
+  width:60px;
+  height:60px;
+  background:#d23f31;
+}
+
+.fab-options{
+  position: absolute;
+  list-style-type: none;
+  margin:0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  transform: scale(0);
+  transform-origin:25% top;
+}
+
+.fab:hover +.fab-options, .fab-options:hover{
+  visibility: visible;
+  transform:scale(1);
+}
+
+.fab-options li{
+  position: relative;
+  display: inline-block;
+  padding: 5px;
+  top:-55px;
+  left:-155px;
+}
+
+.fa-delete{
+  text-align: left;
+}
+
+.sort-text{
+  position: absolute;
+  top:365px;
+  left:250px;
+  color:white;
+}
+
+.desc-sort{
+  position: absolute;
+  top:-50px;
+  left:150px;
+}
+
+.date-sort{
+  position: absolute;
+  top:-50px;
+  left:240px;
+}
+
+.comp-sort{
+  position: absolute;
+  top:-50px;
+  left:330px;
+}
+
+.add-task{
+  position: absolute;
+  left:400px;
+  top:0px;
+}
+
+.delete-modal-btn{
+  position:absolute;
+  top:62px;
+  right:210px;
+}
+
+.delete-icon{
+  position: absolute;
+  top:-10px;
+  left:4.5px;
+  font-size:30px;
+}
+
+.up,.down, .delete{
+  width:40px;
+  height:40px;
+  
+}
+
+.delete-confirm{
+  position: absolute;
+  right:50px;
+  bottom:17px;
+}
+
+.delete-cancel{
+  position: absolute;
+  right:25px;
+  bottom:17px;
+}
+
+.heading-text{
+  left:550px;
+}
+
+
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]){
+  border-color: #ec407a;
+  box-shadow: none;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label,
+input[type=email]:not(.browser-default):focus:not([readonly]) + label,
+input[type=password]:not(.browser-default):focus:not([readonly]) + label{
+  color: #ec407a !important;
+}
