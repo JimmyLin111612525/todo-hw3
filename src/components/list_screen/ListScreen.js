@@ -8,6 +8,7 @@ import { getFirestore } from 'redux-firestore';
 import {changeNameTodoList,changeOwnerTodoList,sortTask,sortDate,sortComplete,removeList,addItem} from '../../store/actions/actionCreators.js';
 import 'materialize-css/dist/css/materialize.min.css';
 import {Modal,Button, Icon} from 'react-materialize';
+import { lstatSync } from 'fs';
 
 class ListScreen extends Component {
     state = {
@@ -26,6 +27,7 @@ class ListScreen extends Component {
         var fireStore=getFirestore();
         var time=0;
         var idNumVal=1;
+        fireStore.collection('todoLists').doc(curList.id).update({created:Date.now()});
         /*console.log(fireStore.collection('todoLists').orderBy('name').then(function(doc){
             console.log(doc);
         }));*/
@@ -188,8 +190,9 @@ class ListScreen extends Component {
 
     render() {
         const auth = this.props.auth;
-        //const fireStore=getFirestore();
-        //fireStore.collection('todoLists').orderBy('owner');
+        const fireStore=getFirestore();
+        fireStore.collection("todoLists")
+        .orderBy("name", "asc");
         const todoList = this.props.todoList;
         if (!auth.uid) {
             return <Redirect to="/" />;

@@ -159,3 +159,11 @@ export function editItem(list,item,desc,assign,date,complete){
         complete
     }
 }
+
+export function recentList(lists){
+    return{
+        type:'RECENT_LIST',
+        lists,
+
+    }
+}

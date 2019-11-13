@@ -20,7 +20,8 @@ class HomeScreen extends Component {
         var newList={
             items:[],
             name:'Unknown',
-            owner:'Unknown'
+            owner:'Unknown',
+            created:Date.now()
         }
         //var id;
         var fireStore=getFirestore();

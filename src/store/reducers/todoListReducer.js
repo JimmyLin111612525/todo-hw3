@@ -324,6 +324,15 @@ const todoListReducer = (state = initState, action) => {
                 todoLists:lists
             }
 
+        case 'RECENT_LIST':
+            var lsts=action.lists;
+            
+            return{
+                ...state,
+               // mostRecentList:action.list,
+                todoLists:lsts
+            }
+
         default:
             return state;
             break;
