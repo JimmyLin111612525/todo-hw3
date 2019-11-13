@@ -5,6 +5,7 @@ import { NavLink, Redirect } from 'react-router-dom';
 import {getFirestore} from 'redux-firestore';
 import { firestoreConnect } from 'react-redux-firebase';
 import {addList} from '../../store/actions/actionCreators.js';
+import {Modal,Button, Icon} from 'react-materialize';
 
 import TodoListLinks from './TodoListLinks'
 
@@ -57,9 +58,9 @@ class HomeScreen extends Component {
                         </div>
                         
                         <div className="home_new_list_container" onClick={this.handleNewList}>
-                                <button className="home_new_list_button" >
+                                <Button className="home_new_list_button btn-large hoverable " style={{width:'40%',height:'20%'}} >
                                     Create a New To Do List
-                                </button>
+                                </Button>
                         </div>
                     </div>
                 </div>

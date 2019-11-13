@@ -257,7 +257,7 @@ class ListScreen extends Component {
                 
 
                 <ItemsList todoList={todoList} />
-                <a className="btn-floating btn-large waves-effect waves-light blue add-task hoverable z-depth-1" onClick={this.handleNewItem}><i className="material-icons">add</i></a>
+                <a className="btn-floating btn-large waves-effect waves-light teal lighten-2 add-task hoverable z-depth-1" onClick={this.handleNewItem}><i className="material-icons">add</i></a>
 
                 
 

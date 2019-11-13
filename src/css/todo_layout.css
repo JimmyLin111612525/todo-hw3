@@ -69,6 +69,16 @@ form button, form h5 {
   left:250px;
 }
 
+.home_new_list_button{
+  position: absolute;
+  right:223px;
+  top:425px;
+}
+
+.list-card-text-container{
+  text-align: center;
+}
+
 .card-completed{
   display: inline;
   position: absolute;
