@@ -104,7 +104,7 @@ class ItemScreen extends Component {
     render() {
         var lst=this.props.todoList;
         console.log(this.props.todoList);
-        //window.addEventListener('popstate',this.handleDelete);
+        window.addEventListener('popstate',this.handleDelete);
         console.log(this.props.todoList.items[this.props.idb]);
         /*console.log(this.props.id);
         console.log(this.props.idb);*/
