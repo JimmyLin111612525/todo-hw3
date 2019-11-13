@@ -16,7 +16,7 @@ class ItemsList extends React.Component {
                 {items && items.map(function(item) {
                     item.id = item.key;
                     return (
-                        <Link to={`/todoList/${todoList.id}/item/${item.id}`} key={item.id}>
+                        <Link to={`/todoList/${todoList.id}/item/${item.key}`} key={item.id}>
                             <ItemCard todoList={todoList} item={item} />
                         </Link>    
                     );})

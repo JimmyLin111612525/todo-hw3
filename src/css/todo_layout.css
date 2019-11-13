@@ -75,6 +75,26 @@ form button, form h5 {
   left:480px;
 }
 
+#desc_label, #ass_label{
+  position:absolute;
+  left:10px;
+}
+
+.submit,.cancel{
+  position:absolute;
+
+}
+
+.submit{
+  top:20px;
+  left:10px;
+}
+
+.cancel{
+  top:20px;
+  left:30px;
+}
+
 .fab-container{
   font-family: Arial, Helvetica, sans-serif;
   position: relative;
@@ -188,6 +208,14 @@ form button, form h5 {
   
 }
 
+.down{
+  background-color: #fcb603;
+}
+
+.delete{
+  background-color:#fb82ff;
+}
+
 .delete-confirm{
   position: absolute;
   right:50px;
@@ -202,6 +230,10 @@ form button, form h5 {
 
 .heading-text{
   left:550px;
+}
+
+.grey{
+  background-color: gray;
 }
 
 

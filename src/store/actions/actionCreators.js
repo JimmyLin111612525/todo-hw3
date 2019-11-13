@@ -130,3 +130,32 @@ export function addList(list){
         list
     }
 }
+
+
+export function addItem(list,item){
+    return{
+        type:'ADD_ITEM',
+        list,
+        item
+    }
+}
+
+export function deleteNewItem(list,item){
+    return{
+        type:'DELETE_NEW_ITEM',
+        list,
+        item
+    }
+}
+
+export function editItem(list,item,desc,assign,date,complete){
+    return{
+        type:'EDIT_ITEM',
+        list,
+        item,
+        desc,
+        assign,
+        date,
+        complete
+    }
+}

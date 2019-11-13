@@ -5,7 +5,7 @@ import { compose } from 'redux';
 import ItemsList from './ItemsList.js'
 import { firestoreConnect } from 'react-redux-firebase';
 import { getFirestore } from 'redux-firestore';
-import {changeNameTodoList,changeOwnerTodoList,sortTask,sortDate,sortComplete,removeList} from '../../store/actions/actionCreators.js';
+import {changeNameTodoList,changeOwnerTodoList,sortTask,sortDate,sortComplete,removeList,addItem} from '../../store/actions/actionCreators.js';
 import 'materialize-css/dist/css/materialize.min.css';
 import {Modal,Button, Icon} from 'react-materialize';
 
@@ -14,15 +14,22 @@ class ListScreen extends Component {
         name: this.props.todoList.name,
         owner: this.props.todoList.owner,
         sort:true,
-        delete:false
+        delete:false,
+        newList:false
     }
 
     componentDidMount(){
+        console.log('MOUNTED')
         console.log(this.props.todoLists);
         var curList=this.props.todoList;
         var allLists=this.props.todoLists;
         var fireStore=getFirestore();
-        fireStore.collection('todoLists').orderBy('name');
+        var time=0;
+        var idNumVal=1;
+        /*console.log(fireStore.collection('todoLists').orderBy('name').then(function(doc){
+            console.log(doc);
+        }));*/
+        
         //var fireStore=getFirestore();
         /*fireStore.collection('todoLists').get().then(function(lists){
             lists.forEach(function(doc){
@@ -33,6 +40,7 @@ class ListScreen extends Component {
         }).then(function(){
             console.log('here!');
             fireStore.collection('todoLists').doc(curList.id).update({created:Date.now()});
+            time++;
             var keys = Object.keys(allLists);
             console.log(Object.keys(allLists));
             for(var i=0;i<keys.length;i++){
@@ -41,8 +49,10 @@ class ListScreen extends Component {
                     fireStore.collection('todoLists').add(allLists[keys[i]]);
                 }
             }  
-        })*/
-        //fireStore.collection('todoLists').orderBy('name');
+        }).then(fireStore.collection('todoLists').orderBy('created'));*/
+        /*var lst = fireStore.collection('todoLists').orderBy('name').get().then(function(lsts){
+            lsts.forEach(lst=>console.log(lst));
+        });*/
     }
 
     handleChange = (e) => {
@@ -82,6 +92,11 @@ class ListScreen extends Component {
         if(!this.state.sort){
             lst.items.reverse();
         }
+
+        for(var i=0;i<lst.items.length;i++){
+            lst.items[i].key=i;
+            lst.items[i].id=i;
+        }
         fireStore.collection('todoLists').doc(this.props.todoList.id).update({items:lst.items});
 
         this.setState({sort:!this.state.sort});
@@ -106,6 +121,10 @@ class ListScreen extends Component {
         if(!this.state.sort){
             lst.items.reverse();
         }
+        for(var i=0;i<lst.items.length;i++){
+            lst.items[i].key=i;
+            lst.items[i].id=i;
+        }
         fireStore.collection('todoLists').doc(this.props.todoList.id).update({items:lst.items});
         this.setState({sort:!this.state.sort});
     }
@@ -128,6 +147,10 @@ class ListScreen extends Component {
         if(!this.state.sort){
             lst.items.reverse();
         }
+        for(var i=0;i<lst.items.length;i++){
+            lst.items[i].key=i;
+            lst.items[i].id=i;
+        }
         fireStore.collection('todoLists').doc(this.props.todoList.id).update({items:lst.items});
         this.setState({sort:!this.state.sort});
     }
@@ -142,6 +165,27 @@ class ListScreen extends Component {
         this.setState({delete:true});
     }
 
+    handleNewItem=()=>{
+        console.log('newList');
+        var newItem={
+            assigned_to:'Unknown',
+            completed:false,
+            description:'Unknown',
+            due_date:'0000-00-00',
+            key:this.props.todoList.items.length,
+            id:this.props.todoList.items.length,
+            new:true
+        }
+        console.log(this.props.addItem(this.props.todoList,newItem));
+        var curList=this.props.todoList;
+        //var items=curList.items;
+        curList.items.push(newItem);
+
+        var fireStore=getFirestore();
+        fireStore.collection('todoLists').doc(curList.id).update({items:curList.items});
+        this.setState({newList:true});
+    }
+
     render() {
         const auth = this.props.auth;
         //const fireStore=getFirestore();
@@ -153,6 +197,11 @@ class ListScreen extends Component {
 
         if(this.state.delete){
             return <Redirect to='/'/>;
+        }
+
+        if(this.state.newList){
+            this.setState({newList:false});
+            return <Redirect to={`/todoList/${this.props.todoList.id}/item/${this.props.todoList.items.length-1}`}/>
         }
 
         const trigger = <Button className="waves-effect waves-light"><Icon className='delete-icon'>delete</Icon></Button>;
@@ -205,7 +254,7 @@ class ListScreen extends Component {
                 
 
                 <ItemsList todoList={todoList} />
-                <a className="btn-floating btn-large waves-effect waves-light blue add-task hoverable z-depth-1"><i className="material-icons">add</i></a>
+                <a className="btn-floating btn-large waves-effect waves-light blue add-task hoverable z-depth-1" onClick={this.handleNewItem}><i className="material-icons">add</i></a>
 
                 
 
@@ -216,6 +265,7 @@ class ListScreen extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps.match.params;
+  console.log(id);
   const { todoLists } = state.firestore.data;
   const todoList = todoLists ? todoLists[id] : null;
   todoList.id = id;
@@ -228,7 +278,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default compose(
-  connect(mapStateToProps,{changeNameTodoList,changeOwnerTodoList,sortTask,sortDate,sortComplete,removeList}),
+  connect(mapStateToProps,{changeNameTodoList,changeOwnerTodoList,sortTask,sortDate,sortComplete,removeList,addItem}),
   firestoreConnect([
     { collection: 'todoLists' },
   ]),

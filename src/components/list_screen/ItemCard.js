@@ -20,10 +20,10 @@ class ItemCard extends React.Component {
             lst.items[index-1]=lst.items[index];
             lst.items[index]=temp;
             for(var i=0;i<lst.items.length;i++){
+                lst.items[i].id=i;
                 lst.items[i].key=i;
             }
             fireStore.collection('todoLists').doc(this.props.todoList.id).update({items:lst.items});
-
         }
         console.log(ret);
     }
@@ -39,6 +39,7 @@ class ItemCard extends React.Component {
             lst.items[index+1]=lst.items[index];
             lst.items[index]=temp;
             for(var i=0;i<lst.items.length;i++){
+                lst.items[i].id=i;
                 lst.items[i].key=i;
             }
             fireStore.collection('todoLists').doc(this.props.todoList.id).update({items:lst.items});
@@ -58,13 +59,31 @@ class ItemCard extends React.Component {
                 lst.items.splice(index,1);
                 for(var i=0;i<lst.items.length;i++){
                     lst.items[i].key=i;
+                    lst.items[i].id=i;
                 }
             }
             fireStore.collection('todoLists').doc(this.props.todoList.id).update({items:lst.items});
             console.log(lst);
     }
 
+    handleClick=(e)=>{
+        e.preventDefault();
+    }
+
     render() {
+        var upClassName="fab-icon-holder up";
+        var downClassName='fab-icon-holder down';
+
+        if(this.props.item.key===0){
+            upClassName="fab-icon-holder up grey";
+        }
+
+        if(this.props.item.key===this.props.todoList.items.length-1){
+            downClassName='fab-icon-holder down grey';
+        }
+
+
+
         console.log(this.props.todoList.items);
         const { item } = this.props;  
         var complete=(item.completed?'Complete':'In progress');
@@ -83,19 +102,19 @@ class ItemCard extends React.Component {
                         <span className="card-due-date">{item.due_date}</span>
                         <span className={completedClassName}>{complete}</span>
                     </div>
-                        <div className="fab-container">
+                        <div className="fab-container" onClick={this.handleClick}>
                             <div className="fab fab-icon-holder">
                                 <a className="vert-ellipse">{'⋮'}</a>
                             </div>
                             <ul className="fab-options">
                                 <li>
-                                    <div className="fab-icon-holder up" onClick={this.moveUp}>
+                                    <div className={upClassName} onClick={this.moveUp}>
                                         <a className="up-arrow">{'↑'}</a>
                                     </div>
                                 </li>
 
                                 <li>
-                                    <div className="fab-icon-holder down" onClick={this.moveDown}>
+                                    <div className={downClassName} onClick={this.moveDown}>
                                         <a className="down-label">{'↓'}</a>
                                     </div>
                                 </li>

@@ -264,6 +264,66 @@ const todoListReducer = (state = initState, action) => {
                 todoLists:lst
             }
         
+        case 'EDIT_ITEM':
+            var item=action.item;
+            var lst=action.list;
+            var desc=action.desc;
+            var assign=action.assign;
+            var date=action.date;
+            var complete=action.complete;
+            item.description=desc;
+            item.assigned_to=assign;
+            item.due_date=date;
+            item.completed=complete;
+            lst.items[item.key]=item;
+
+            var lists=JSON.parse(JSON.stringify(state.todoLists));
+            console.log(lists);
+            
+            for(var i=0;i<lists.length;i++){
+                if(lists[i].id===lst.id){
+                    lists[i]=lst;
+                }
+            }
+
+            return{
+                ...state,
+                todoList:lists
+            }
+
+        case 'ADD_ITEM':
+            var lst=JSON.parse(JSON.stringify(action.list));
+            lst.items.push(action.item);
+            
+            var lists=JSON.parse(JSON.stringify(state.todoLists));
+            for(var i=0;i<lists.length;i++){
+                if(lists[i].id===lst.id){
+                    lists[i]=lst;
+                }
+            }
+
+            return{
+                ...state,
+                todoLists:lists
+            }
+
+        case 'DELETE_NEW_ITEM':
+            var lst=JSON.parse(JSON.stringify(action.list));
+            lst.items.splice(lst.items.length-1,1);
+            console.log(lst.items);
+
+            var lists=JSON.parse(JSON.stringify(state.todoLists));
+            for(var i=0;i<lists.length;i++){
+                if(lists[i].id===lst.id){
+                    lists[i]=lst;
+                }
+            }
+
+            return{
+                ...state,
+                todoLists:lists
+            }
+
         default:
             return state;
             break;

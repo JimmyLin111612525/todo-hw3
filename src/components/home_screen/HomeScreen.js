@@ -22,15 +22,15 @@ class HomeScreen extends Component {
             name:'Unknown',
             owner:'Unknown'
         }
-        var id;
+        //var id;
         var fireStore=getFirestore();
         fireStore.collection('todoLists').add(newList).then(doc =>{
             this.setState({id:doc.id});
             newList.id=doc.id;
-            console.log(this.props.dispatch(this.props.addList(newList)));
+            this.props.dispatch(this.props.addList(newList));
         })
 
-        console.log(id);
+        //console.log(id);
     }
 
     render() {
